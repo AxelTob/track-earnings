@@ -1,0 +1,33 @@
+.container {
+  position: relative;
+}
+form {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.7);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* Position the container for earnings input and buttons */
+#earnings-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+/* Position the earnings input */
+#earnings-input {
+  width: 150px; /* adjust as needed */
+  height: 50px; /* adjust as needed */
+  margin-bottom: 10px; /* add space between input and buttons */
+}
+
+/* Position the buttons */
+.earnings-button {
+  width: 75px; /* adjust as needed */
+  height: 30px; /* adjust as needed */
+  display: inline-block; /* display buttons next to each other */
+}

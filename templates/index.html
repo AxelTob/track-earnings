@@ -1,0 +1,133 @@
+<html>
+  <head>
+    <title>My First Web Page</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <div class="container">
+    <div class="row">
+      <div class="col s12">
+        <canvas id="myChart"></canvas>
+      </div>
+      <div class="col s12 m6 offset-m6">
+        <div class="card-panel teal">
+          <span class="white-text">
+            <h5>Statistics</h5>
+            <p>Month: {{month}}</p>
+            <p>Year: {{year}}</p>
+            <p>Average: {{avg}}</p>
+            <p>Total: {{total}}</p>
+            <p>Max: {{max}}</p>
+          </span>
+        </div>
+      </div>
+      <div class="col s12 m8 l5">
+        <div>
+          <form action="{{url_for('get_monthly_earnings')}}" method="GET">
+            <button
+              class="btn waves-effect waves-light"
+              type="submit"
+              name="command"
+              value="prev"
+            >
+              Prev
+            </button>
+            <button
+              class="btn waves-effect waves-light"
+              type="submit"
+              name="command"
+              value="next"
+            >
+              Next
+            </button>
+          </form>
+          <form action="{{url_for('add_earnings')}}" method="POST">
+            <div>
+              <input
+                id="earnings"
+                type="number"
+                class="validate"
+                name="amount"
+                required
+              />
+              <label for="earnings">Earnings</label>
+            </div>
+            <div>
+              <input
+                id="date"
+                type="date"
+                class="datepicker"
+                name="date"
+                required
+              />
+              <label for="date">Date</label>
+            </div>
+            <button
+              class="btn waves-effect waves-light"
+              type="submit"
+              name="action"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</html>
+<!-- The chart-->
+<script>
+  const ctx = document.getElementById("myChart").getContext("2d");
+  // print chart_type
+  console.log("{{chart_type }}");
+  console.log("{{labels }}")
+  console.log("{{values}}")
+  console.log("{{labels[0]}}")
+  console.log("{{avg}}")
+
+  console.log("hello");
+  const myChart = new Chart(ctx, {
+    type: "{{chart_type }}",
+    data: {
+      labels: [{% for item in labels %}
+      "{{item}}",
+      {% endfor %}],
+      datasets: [
+        {
+          label: "# Earnings (USD)",
+          data: [{% for item in values %}
+          {{item}},
+          {% endfor %}],
+          backgroundColor: [
+            "rgba(255, 99, 132, 0.2)",
+            "rgba(54, 162, 235, 0.2)",
+            "rgba(255, 206, 86, 0.2)",
+            "rgba(75, 192, 192, 0.2)",
+            "rgba(153, 102, 255, 0.2)",
+            "rgba(255, 159, 64, 0.2)",
+          ],
+          borderColor: [
+            "rgba(255, 99, 132, 1)",
+            "rgba(54, 162, 235, 1)",
+            "rgba(255, 206, 86, 1)",
+            "rgba(75, 192, 192, 1)",
+            "rgba(153, 102, 255, 1)",
+            "rgba(255, 159, 64, 1)",
+          ],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+</script>
